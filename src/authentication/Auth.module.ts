@@ -10,7 +10,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [UserModule,PrismaModule,PassportModule,ConfigModule.forRoot(),JwtModule.register({privateKey:process.env.SECRET_KEY,signOptions:{expiresIn:'60s'}})],
+  imports: [UserModule,PrismaModule,PassportModule,ConfigModule.forRoot(),JwtModule.register({privateKey:process.env.SECRET_KEY,signOptions:{expiresIn:'1h'}})],
   controllers: [AuthController],
   providers: [AuthService,LocalStrategy,JwtStrategy],
   exports: [AuthService]
