@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, HttpStatus, HttpCode } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -8,6 +8,7 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   async create(@Body() createTaskDto: CreateTaskDto) {
     
     return await  this.taskService.create(createTaskDto);
@@ -17,15 +18,15 @@ export class TaskController {
   // findAll() {
   //   return this.taskService.findAll();
   // }
-
+  @HttpCode(HttpStatus.OK)
   @Get(':id')
   async findOne(@Param('id',new ParseUUIDPipe()) id: string) {
     return await this.taskService.findOne(id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return await this.taskService.update(+id, updateTaskDto);
+  async update(@Param('id',new ParseUUIDPipe()) id: string, @Body() updateTaskDto: UpdateTaskDto) {
+    return await this.taskService.update(id, updateTaskDto);
   }
 
   @Delete(':id')

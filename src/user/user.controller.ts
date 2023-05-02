@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe,UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe,UseGuards, HttpStatus, HttpCode } from '@nestjs/common';
 import { UserService } from './user.service';
 import CreateUserDto from './dto/CreateUser.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -14,10 +14,12 @@ export class UserController {
 
 
   @Get()
+  @HttpCode(HttpStatus.OK)
   findAll() {
     return this.userService.findAll();
   }
 
+  @HttpCode(HttpStatus.OK)
   @Get(':id')
   findOne(@Param('id',new ParseUUIDPipe) id: string) {
     return this.userService.findOne(id);

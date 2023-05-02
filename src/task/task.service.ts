@@ -34,8 +34,9 @@ export class TaskService {
     throw new HttpException('Tarefa não encontrada !',HttpStatus.NOT_FOUND)
   }
 
-  async update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: string, updateTaskDto: UpdateTaskDto) {
+    return await this.prismaService.task.update({where:{id},data: updateTaskDto})
+
   }
 
   async remove(id: number) {
