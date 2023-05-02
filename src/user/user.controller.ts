@@ -25,14 +25,13 @@ export class UserController {
     return this.userService.findOne(req.user.id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDTO) {
-    
-    return this.userService.update(id, updateUserDto);
+  @Patch('')
+  update(@Req() req:any,@Body() updateUserDto:UpdateUserDTO) {
+    return this.userService.update(req.user.id, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id',new ParseUUIDPipe()) id: string) {
-    return this.userService.remove(id);
+  @Delete('')
+  remove(@Req() req:any) {
+    return this.userService.remove(req.user.id);
   }
 }
