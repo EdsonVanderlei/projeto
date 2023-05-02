@@ -1,7 +1,5 @@
-import { HttpException, HttpStatus, BadRequestException, Injectable } from '@nestjs/common';
-import CreateUserDto from './dto/CreateUser.dto';
+import {  BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import * as bcrypt from 'bcrypt'
 import { UpdateUserDTO } from './dto/UpdateUser.dto';
 @Injectable()
 export class UserService {
@@ -9,14 +7,14 @@ export class UserService {
   constructor(private prismaService: PrismaService) { }
 
 
-  
+
   async findAll() {
-    return await this.prismaService.user.findMany({include:{Tasks:true}});
+    return await this.prismaService.user.findMany({ include: { Tasks: true } });
   }
 
-  async findByEmail(Email:string){
-      const res = await this.prismaService.user.findFirst({where:{email:Email}})
-      return  res ? res : null
+  async findByEmail(Email: string) {
+    const res = await this.prismaService.user.findFirst({ where: { email: Email } })
+    return res ? res : null
   }
 
   async findOne(id: string) {

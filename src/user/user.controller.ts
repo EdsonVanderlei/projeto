@@ -1,11 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe,UseGuards, HttpStatus, HttpCode, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete,UseGuards, HttpStatus, HttpCode, Req } from '@nestjs/common';
 import { UserService } from './user.service';
-import CreateUserDto from './dto/CreateUser.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {AuthGuard} from '@nestjs/passport'
 import { UpdateUserDTO } from './dto/UpdateUser.dto';
 
-// http://localhost:3000/user/23
 @UseGuards(AuthGuard('jwt'))
 @Controller('user')
 export class UserController {

@@ -1,4 +1,4 @@
-import { IsEmail,IsNotEmpty, Validate, IsNumber, IsString, IsStrongPassword, Length, MinLength } from "class-validator";
+import { IsEmail,IsNotEmpty, Validate,  IsString, IsStrongPassword , MinLength } from "class-validator";
 import { Validator } from "src/Validator/Validator";
 export  class SignUpDTO {
 
