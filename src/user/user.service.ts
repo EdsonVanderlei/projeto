@@ -9,7 +9,7 @@ export class UserService {
   constructor(private prismaService: PrismaService) { }
 
 
-
+  
   async findAll() {
     return await this.prismaService.user.findMany({
       select: {
