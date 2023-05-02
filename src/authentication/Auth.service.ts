@@ -5,18 +5,20 @@ import * as bcrypt from 'bcrypt'
 import { User } from '@prisma/client';
 import { SignUpDTO } from './DTO/SignUp.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CryptoService } from 'src/crypto/crypto.service';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly userService: UserService, private readonly jwtService: JwtService, private readonly prismaService:PrismaService) { }
+    constructor(private readonly cryptoService: CryptoService,private readonly userService: UserService, private readonly jwtService: JwtService, private readonly prismaService:PrismaService) { }
 
     async login(user: User) {
-        const payload = { sub: user.id, email: user.email }
+        const payload = { sub: user.id, email: user.email, role: user.role }
         const token = await this.jwtService.signAsync(payload)
+        //  const encrypted =  this.cryptoService.Crypto(token)
         let userClone = { ...user }
         delete userClone.senha
         return {
-            token,
+            token: token,
             user: userClone
         }
     }

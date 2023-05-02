@@ -11,25 +11,7 @@ export class UserService {
 
   
   async findAll() {
-    return await this.prismaService.user.findMany({
-      select: {
-        nome: true,
-        cpf: true,
-        id: true,
-        email:true,
-        senha: true,
-        Tasks: {
-          select: {
-            data: true,
-            id: true,
-            descricao: true
-          }
-        }
-      },
-
-    },
-
-    );
+    return await this.prismaService.user.findMany({include:{Tasks:true}});
   }
 
   async findByEmail(Email:string){
@@ -39,7 +21,10 @@ export class UserService {
 
   async findOne(id: string) {
     const res = await this.prismaService.user.findFirst({ where: { id } })
-    if (res) return res
+    if (res) {
+      delete res.senha
+      return res
+    }
     throw new BadRequestException('Nenhum usuário Encontrado !')
   }
 
